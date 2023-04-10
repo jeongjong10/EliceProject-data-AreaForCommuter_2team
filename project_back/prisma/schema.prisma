@@ -1,0 +1,134 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @unique @default(uuid())
+  email     String     @unique @db.VarChar(100)
+  name      String     @db.VarChar(20)
+  nickname  String     @unique @db.VarChar(20)
+  password  String     @db.VarChar(100)
+  isAdmin   Boolean    @default(false)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  deletedAt DateTime?
+  kakaoId   String?    @unique
+  Review    Review[]
+  WishList  WishList[]
+}
+
+model Station {
+  id                 String               @id @unique @default(uuid())
+  station_name       String               @db.VarChar(30)
+  station_line       String               @db.VarChar(10)
+  area               String?              @db.VarChar(20)
+  rent_price         Float
+  lease_price        Float
+  pos_x              String               @db.VarChar(40)
+  pos_y              String               @db.VarChar(40)
+  Review             Review[]
+  StationCrowdedness StationCrowdedness[]
+  TravelTime_arv     TravelTime[]         @relation("TravelTime_arv")
+  TravelTime_dep     TravelTime[]         @relation("TravelTime_dep")
+  WishList           WishList[]
+}
+
+model StationCrowdedness {
+  id                  String  @id @unique @default(uuid())
+  station_id          String  @db.VarChar(40)
+  startTime_upbound   Int?
+  startTime_downbound Int?
+  endTime_upbound     Int?
+  endTime_downbound   Int?
+  station             Station @relation(fields: [station_id], references: [id])
+
+  @@index([station_id], map: "StationCrowdedness_station_id_fkey")
+}
+
+model TravelTime {
+  id                  String  @id @unique @default(uuid())
+  travel_time         Int
+  feel_time_weekday_d Int
+  feel_time_weekday_m Int
+  feel_time_weekday_n Int
+  feel_time_weekend_d Int
+  feel_time_weekend_m Int
+  feel_time_weekend_n Int
+  station_arv_id      String
+  station_dep_id      String
+  station_arv         Station @relation("TravelTime_arv", fields: [station_arv_id], references: [id])
+  station_dep         Station @relation("TravelTime_dep", fields: [station_dep_id], references: [id])
+
+  @@index([station_arv_id], map: "TravelTime_station_arv_id_fkey")
+  @@index([station_dep_id], map: "TravelTime_station_dep_id_fkey")
+}
+
+model Review {
+  id         String    @id @unique @default(uuid())
+  user_id    String    @db.VarChar(40)
+  station_id String    @db.VarChar(40)
+  body       String    @db.VarChar(300)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
+  station    Station   @relation(fields: [station_id], references: [id])
+  user       User      @relation(fields: [user_id], references: [id])
+
+  @@index([station_id], map: "Review_station_id_fkey")
+  @@index([user_id], map: "Review_user_id_fkey")
+}
+
+model WishList {
+  id         String    @id @unique @default(uuid())
+  user_id    String    @db.VarChar(40)
+  station_id String    @db.VarChar(40)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
+  station    Station   @relation(fields: [station_id], references: [id])
+  user       User      @relation(fields: [user_id], references: [id])
+
+  @@unique([user_id, station_id])
+  @@index([station_id], map: "WishList_station_id_fkey")
+  @@index([user_id], map: "WishList_user_id_fkey")
+}
+
+model Park {
+  id    Int    @id @default(autoincrement())
+  pos_x Float
+  pos_y Float
+  name  String @db.VarChar(40)
+}
+
+model Mart {
+  id    Int    @id @default(autoincrement())
+  pos_x Float
+  pos_y Float
+  name  String @db.VarChar(40)
+}
+
+model Cinema {
+  id    Int    @id @default(autoincrement())
+  pos_x Float
+  pos_y Float
+  name  String @db.VarChar(40)
+}
+
+model Cctv {
+  id         Int   @id @default(autoincrement())
+  camera_qty Int
+  pos_x      Float
+  pos_y      Float
+}
+
+model Hospital {
+  id    Int    @id @default(autoincrement())
+  name  String @db.VarChar(40)
+  pos_x Float
+  pos_y Float
+}
