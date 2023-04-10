@@ -3,8 +3,6 @@
 - [2팀 프로젝트 노션](https://www.notion.so/elice/2-24-0d06a8c5921d4817b428bd9fac47ac87)
 - [2팀 프로젝트 PT](https://docs.google.com/presentation/d/1QmkoWAhhMQhhkOXj4VM60wlJ7E5Gs4prW53s22Amuxs/edit#slide=id.g2232c5321fe_0_25)
 
-# 서비스 구성 안내
-
 ## 1. 서비스 소개
 
 ### 개요
