@@ -1,7 +1,8 @@
 # 2팀 <2사가게?> 프로젝트
 
-- [2팀 프로젝트 노션](https://www.notion.so/elice/2-24-0d06a8c5921d4817b428bd9fac47ac87)
+- [2팀 프로젝트 노션](https://www.notion.so/jeongjong10/2-24-e66d59177213438ab8120ff2ec6d3ea5)
 - [2팀 프로젝트 PT](https://docs.google.com/presentation/d/1QmkoWAhhMQhhkOXj4VM60wlJ7E5Gs4prW53s22Amuxs/edit#slide=id.g2232c5321fe_0_25)
+- [2팀 프로젝트 시연 영상](https://drive.google.com/file/d/1JDA8xIvxGUJ7t2kAfnCuvVACaf5QFSzc/view?usp=share_link)
 
 ## 1. 서비스 소개
 
